@@ -33,7 +33,7 @@ import pandas as pd
 import seaborn as sns
 
 # Load dataset using Pandas library
-data = pd.read_csv("data.csv")
+data = pd.read_csv("CancerCellData.csv")
 data = data.drop(['Unnamed: 32','id'],axis = 1)
 print(data.head())
 
@@ -69,7 +69,7 @@ import pandas as pd
 import matplotlib.pyplot as plt 
 import seaborn as sns
 import numpy as np
-data = pd.read_csv("data.csv")
+data = pd.read_csv("CancerCellData.csv")
 
 # Correlation Map between dataset variables/columns
 f,ax = plt.subplots(figsize = (18,18))
@@ -108,7 +108,7 @@ plt.show()
 import pandas as pd 
 import seaborn as sns
 
-data = pd.read_csv("data.csv")
+data = pd.read_csv("CancerCellData.csv")
 
 # Calculating Pearson Coefficient 
 p1 = data.loc[:,["area_mean", "radius_mean"]].corr(method="pearson")
@@ -138,7 +138,7 @@ print("\nSpearman's Correlation: ",spearman_correlation)
 import pandas as pd 
 import numpy as np
 # here dataset loaded
-data = pd.read_csv("data.csv")
+data = pd.read_csv("CancerCellData.csv")
 
 # Bening and Malignant cancer were splitted
 data_malignant = data[data["diagnosis"] == "M"]
