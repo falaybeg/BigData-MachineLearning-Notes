@@ -19,14 +19,27 @@ spark = SparkSession.builder.master("local[4]")\
 # Here is defined SparkContext which uses for accessing to cluster
 sc = spark.sparkContext
 
-data = sc.textFile("omer-seyfettin-forsa-hikaye.txt")
+data = sc.textFile("HanselStory.txt")
 # row number is counted from story text
 print("Story Row Number: ",data.count())
 # 5 row is taken from story text file
-print("-- Take first 5 row ---\n",data.take(5))
+print("\n-- Take first 5 row ---\n",data.take(5))
+
+words = data.flatMap(lambda row: row.split(" "))
+print("\n\n--- Splitted Words ---\n",     words.take(10))
+
+words_number = words.map(lambda word: (word,1))
+print(words_number.take(5))
 
 words = data.flatMap(lambda row: row.split(" "))
 print("\n--- Splitted Words ---\n",     words.take(10))
-'''
+
 words_number = words.map(lambda word: (word,1))
-print(words_number.take(5))'''
+print("\n--- Word Count (key,value) ---\n",words_number.take(5))
+
+words_number_RBW = words_number.reduceByKey(lambda key,count: key+count)
+print("\n--- Word Total Count (key,value) ---\n",words_number_RBW.take(10))
+
+words_number_RBW2 = words_number_RBW.map(lambda key: (key[1], key[0]))
+words_number_RBW2.take(5)
+print("\n--- Sorted Words ---\n",words_number_RBW2.sortByKey(False).take(20))
